@@ -1,0 +1,152 @@
+﻿@{
+    ViewData["Title"] = "Administrator Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .login-wrapper {
+        max-width: 650px;
+        margin: 40px auto;
+    }
+
+    .login-card {
+        background: #ffffff;
+        border: 1px solid #ede9fe;
+        border-radius: 24px;
+        padding: 50px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.03);
+    }
+
+    .login-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #1f1b2e;
+        margin-bottom: 12px;
+        text-align: center;
+    }
+
+    .login-subtitle {
+        text-align: center;
+        color: #6b7280;
+        line-height: 1.8;
+        font-size: 1rem;
+        max-width: 500px;
+        margin: 0 auto 35px auto;
+    }
+
+    .security-box {
+        background: linear-gradient(135deg, #faf7ff 0%, #ffffff 100%);
+        border: 1px solid #ddd6fe;
+        border-radius: 18px;
+        padding: 24px;
+        margin-bottom: 30px;
+    }
+
+    .security-title {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #4c1d95;
+        margin-bottom: 10px;
+    }
+
+    .security-text {
+        color: #6b7280;
+        line-height: 1.7;
+        font-size: 0.95rem;
+    }
+
+    .login-btn {
+        width: 100%;
+        border: none;
+        border-radius: 14px;
+        padding: 16px;
+        background: linear-gradient(135deg, #4c1d95, #7c3aed);
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+        box-shadow: 0 10px 24px rgba(76, 29, 149, 0.18);
+    }
+
+        .login-btn:hover {
+            transform: translateY(-1px);
+        }
+
+    .logged-box {
+        background: #f5f3ff;
+        border: 1px solid #ddd6fe;
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        color: #4c1d95;
+        font-weight: 500;
+    }
+
+    .support-text {
+        text-align: center;
+        margin-top: 28px;
+        font-size: 0.9rem;
+        color: #9ca3af;
+    }
+
+        .support-text a {
+            color: #4c1d95;
+            font-weight: 600;
+        }
+</style>
+
+<div class="login-wrapper">
+
+    <div class="login-card">
+
+        <div class="login-title">
+            Administrator Login
+        </div>
+
+        <div class="login-subtitle">
+            Access the secure student management platform using your authorized
+            GitHub account for protected administrator authentication and
+            centralized academic management.
+        </div>
+
+        <div class="security-box">
+            <div class="security-title">
+                Secure GitHub Authentication
+            </div>
+
+            <div class="security-text">
+                For improved platform security, all administrators are required
+                to sign in using verified GitHub OAuth authentication. This helps
+                protect learner records, cloud storage access, and administrative operations.
+            </div>
+        </div>
+
+        @if (User?.Identity?.IsAuthenticated == true)
+        {
+            <div class="logged-box">
+                You are currently signed in as
+                <strong>@User.Identity.Name</strong>
+            </div>
+        }
+        else
+        {
+            <form asp-action="StartLogin" asp-controller="Account" method="post">
+
+                <button type="submit" class="login-btn">
+                    Continue with GitHub
+                </button>
+
+            </form>
+        }
+
+        <div class="support-text">
+            Need assistance?
+            <a href="#">
+                Contact Support
+            </a>
+        </div>
+
+    </div>
+
+</div>

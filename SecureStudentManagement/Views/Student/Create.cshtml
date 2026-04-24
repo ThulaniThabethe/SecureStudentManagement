@@ -1,0 +1,319 @@
+﻿@model SecureStudentManagement.Models.Learner
+
+@{
+    ViewData["Title"] = "Register New Learner";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .create-wrapper {
+        width: 100%;
+    }
+
+    .create-header {
+        margin-bottom: 30px;
+    }
+
+    .create-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1f1b2e;
+        margin-bottom: 10px;
+    }
+
+    .create-subtitle {
+        color: #6b7280;
+        line-height: 1.7;
+        max-width: 700px;
+    }
+
+    .alert-box {
+        padding: 16px 20px;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        font-weight: 500;
+    }
+
+    .alert-error {
+        background: #fef2f2;
+        color: #b91c1c;
+        border: 1px solid #fecaca;
+    }
+
+    .alert-validation {
+        background: #faf5ff;
+        color: #5b21b6;
+        border: 1px solid #ddd6fe;
+    }
+
+    .form-card {
+        background: #ffffff;
+        border: 1px solid #ede9fe;
+        border-radius: 24px;
+        padding: 35px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    }
+
+    .image-section {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin-bottom: 35px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #f3f4f6;
+    }
+
+    .preview-image {
+        width: 130px;
+        height: 130px;
+        border-radius: 20px;
+        object-fit: cover;
+        border: 2px solid #ede9fe;
+        background: #fafafa;
+    }
+
+    .upload-section {
+        flex: 1;
+        min-width: 280px;
+    }
+
+    .section-label {
+        font-weight: 600;
+        color: #1f1b2e;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .upload-note {
+        margin-top: 10px;
+        color: #6b7280;
+        font-size: 0.9rem;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+    }
+
+    .full-width {
+        grid-column: span 2;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #1f1b2e;
+    }
+
+    .custom-input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid #ddd6fe;
+        border-radius: 14px;
+        font-size: 0.95rem;
+        background: #fafafa;
+        outline: none;
+    }
+
+        .custom-input:focus {
+            border-color: #7c3aed;
+            background: white;
+        }
+
+    .validation-text {
+        color: #dc2626;
+        font-size: 0.85rem;
+        margin-top: 6px;
+        display: block;
+    }
+
+    .action-row {
+        margin-top: 35px;
+        display: flex;
+        gap: 14px;
+    }
+
+    .cancel-btn {
+        padding: 14px 24px;
+        border-radius: 14px;
+        border: 1px solid #ddd6fe;
+        background: white;
+        color: #4c1d95;
+        font-weight: 600;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .save-btn {
+        border: none;
+        padding: 14px 28px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #4c1d95, #7c3aed);
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 10px 24px rgba(76, 29, 149, 0.15);
+    }
+</style>
+
+<div class="create-wrapper">
+
+    <div class="create-header">
+        <div class="create-title">
+            Register New Learner
+        </div>
+
+        <div class="create-subtitle">
+            Create a new learner profile by capturing student details,
+            enrollment information, and uploading a secure profile image for identification.
+        </div>
+    </div>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert-box alert-error">
+            @TempData["Error"]
+        </div>
+    }
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert-box alert-validation">
+            <strong>Please correct the following validation issues:</strong>
+
+            <ul style="margin-top: 12px; padding-left: 20px;">
+                @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@modelError.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+
+    <div class="form-card">
+
+        <form asp-action="Create"
+              asp-controller="Student"
+              method="post"
+              enctype="multipart/form-data"
+              id="createForm">
+
+            @Html.AntiForgeryToken()
+
+            <div class="image-section">
+
+                <img id="imagePreview"
+                     src="https://via.placeholder.com/130"
+                     alt="Profile Preview"
+                     class="preview-image" />
+
+                <div class="upload-section">
+
+                    <label class="section-label">
+                        Upload Profile Image
+                    </label>
+
+                    <input type="file"
+                           name="profileImage"
+                           id="profileImage"
+                           accept=".jpg,.jpeg,.png"
+                           class="custom-input" />
+
+                    <div class="upload-note">
+                        Accepted formats: JPG, JPEG, PNG
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input asp-for="FirstName" class="custom-input" />
+                    <span asp-validation-for="FirstName" class="validation-text"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input asp-for="LastName" class="custom-input" />
+                    <span asp-validation-for="LastName" class="validation-text"></span>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Email Address</label>
+                    <input asp-for="Email" type="email" class="custom-input" />
+                    <span asp-validation-for="Email" class="validation-text"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input asp-for="MobileNumber" class="custom-input" />
+                    <span asp-validation-for="MobileNumber" class="validation-text"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Enrollment Status</label>
+                    <select asp-for="EnrolmentStatus" class="custom-input">
+                        <option value="">Select Status</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                    <span asp-validation-for="EnrolmentStatus" class="validation-text"></span>
+                </div>
+
+            </div>
+
+            <div class="action-row">
+
+                <a asp-action="List" class="cancel-btn">
+                    Cancel
+                </a>
+
+                <button type="submit" class="save-btn">
+                    Save Learner Record
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        const imageInput = document.getElementById("profileImage");
+        const imagePreview = document.getElementById("imagePreview");
+
+        imageInput.addEventListener("change", function (event) {
+            const file = event.target.files[0];
+
+            if (file) {
+                const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+
+                if (!allowedTypes.includes(file.type)) {
+                    alert("Only JPG, JPEG and PNG files are allowed.");
+                    imageInput.value = "";
+                    imagePreview.src = "https://via.placeholder.com/130";
+                    return;
+                }
+
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+}

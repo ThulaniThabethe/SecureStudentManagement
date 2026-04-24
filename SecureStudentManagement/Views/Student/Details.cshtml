@@ -1,0 +1,255 @@
+﻿@model SecureStudentManagement.Models.Learner
+
+@{
+    ViewData["Title"] = "Learner Overview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .details-wrapper {
+        width: 100%;
+    }
+
+    .details-header {
+        margin-bottom: 30px;
+    }
+
+    .details-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1f1b2e;
+        margin-bottom: 10px;
+    }
+
+    .details-subtitle {
+        color: #6b7280;
+        line-height: 1.7;
+        max-width: 700px;
+    }
+
+    .details-card {
+        background: #ffffff;
+        border: 1px solid #ede9fe;
+        border-radius: 24px;
+        padding: 35px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    }
+
+    .profile-section {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        flex-wrap: wrap;
+        margin-bottom: 35px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #f3f4f6;
+    }
+
+    .profile-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 22px;
+        object-fit: cover;
+        border: 2px solid #ede9fe;
+        background: #fafafa;
+    }
+
+    .profile-name {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #1f1b2e;
+        margin-bottom: 10px;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 8px 16px;
+        border-radius: 30px;
+        background: #f5f3ff;
+        color: #5b21b6;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+    }
+
+    .info-box {
+        background: #fafafa;
+        border: 1px solid #ede9fe;
+        border-radius: 18px;
+        padding: 22px;
+    }
+
+    .info-label {
+        font-size: 0.85rem;
+        color: #6b7280;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+
+    .info-value {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #1f1b2e;
+        line-height: 1.6;
+        word-break: break-word;
+    }
+
+    .action-row {
+        margin-top: 35px;
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .back-btn {
+        padding: 14px 24px;
+        border-radius: 14px;
+        border: 1px solid #ddd6fe;
+        background: white;
+        color: #4c1d95;
+        font-weight: 600;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .edit-btn {
+        padding: 14px 28px;
+        border-radius: 14px;
+        border: none;
+        background: linear-gradient(135deg, #4c1d95, #7c3aed);
+        color: white;
+        font-weight: 600;
+        text-decoration: none;
+        text-align: center;
+        box-shadow: 0 10px 24px rgba(76, 29, 149, 0.15);
+    }
+
+    .delete-btn {
+        padding: 14px 24px;
+        border-radius: 14px;
+        border: 1px solid #f3e8ff;
+        background: #faf5ff;
+        color: #7c3aed;
+        font-weight: 600;
+        text-decoration: none;
+        text-align: center;
+    }
+
+        .back-btn:hover,
+        .edit-btn:hover,
+        .delete-btn:hover {
+            transition: 0.2s;
+            transform: translateY(-1px);
+        }
+</style>
+
+<div class="details-wrapper">
+
+    <div class="details-header">
+
+        <div class="details-title">
+            Learner Overview
+        </div>
+
+        <div class="details-subtitle">
+            Review learner profile information, academic enrollment details,
+            and administrative records from the secure management system.
+        </div>
+
+    </div>
+
+    <div class="details-card">
+
+        <div class="profile-section">
+
+            <img src="@(!string.IsNullOrEmpty(Model.ProfileImageUrl) ? Model.ProfileImageUrl : "https://via.placeholder.com/120")"
+                 class="profile-image"
+                 alt="Learner Profile" />
+
+            <div>
+
+                <div class="profile-name">
+                    @Model.FirstName @Model.LastName
+                </div>
+
+                <div class="status-badge">
+                    @Model.EnrolmentStatus
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="info-grid">
+
+            <div class="info-box">
+                <div class="info-label">
+                    Student ID
+                </div>
+
+                <div class="info-value">
+                    @Model.id
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-label">
+                    Email Address
+                </div>
+
+                <div class="info-value">
+                    @Model.Email
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-label">
+                    Mobile Number
+                </div>
+
+                <div class="info-value">
+                    @Model.MobileNumber
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-label">
+                    Enrollment Status
+                </div>
+
+                <div class="info-value">
+                    @Model.EnrolmentStatus
+                </div>
+            </div>
+
+        </div>
+
+        <div class="action-row">
+
+            <a asp-action="List"
+               class="back-btn">
+                Back to List
+            </a>
+
+            <a asp-action="Edit"
+               asp-route-id="@Model.id"
+               class="edit-btn">
+                Edit Record
+            </a>
+
+            <a asp-action="Delete"
+               asp-route-id="@Model.id"
+               class="delete-btn">
+                Deactivate
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

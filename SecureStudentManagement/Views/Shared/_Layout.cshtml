@@ -1,0 +1,330 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - SecureStudentManagement</title>
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #ffffff;
+            color: #1f1b2e;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .top-banner {
+            background: linear-gradient(135deg, #2e1065 0%, #4c1d95 50%, #6d28d9 100%);
+            padding: 14px 40px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 20px rgba(76, 29, 149, 0.15);
+        }
+
+        .top-banner-left {
+            font-weight: 500;
+        }
+
+        .main-header {
+            background: white;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f1f1f5;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .brand-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #4c1d95, #7c3aed);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(76, 29, 149, 0.18);
+        }
+
+        .brand-text h2 {
+            font-size: 1.4rem;
+            color: #1f1b2e;
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+
+        .brand-text p {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            color: #2e1065;
+            font-weight: 600;
+            font-size: 0.96rem;
+            transition: 0.2s;
+        }
+
+            nav a:hover {
+                color: #7c3aed;
+            }
+
+        .user-panel {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .profile-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ede9fe;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+            .user-details strong {
+                font-size: 0.95rem;
+                color: #1f1b2e;
+            }
+
+            .user-details span {
+                font-size: 0.8rem;
+                color: #6b7280;
+            }
+
+        .btn-auth {
+            background: linear-gradient(135deg, #4c1d95, #7c3aed);
+            border: none;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 8px 18px rgba(76, 29, 149, 0.15);
+        }
+
+            .btn-auth:hover {
+                transform: translateY(-1px);
+            }
+
+        .hero-section {
+            max-width: 1280px;
+            margin: 35px auto 20px;
+            padding: 0 20px;
+        }
+
+        .hero-card {
+            background: linear-gradient(135deg, #ffffff 0%, #faf7ff 100%);
+            border: 1px solid #ede9fe;
+            border-radius: 22px;
+            padding: 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .hero-left h1 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            color: #1f1b2e;
+            font-weight: 700;
+        }
+
+        .hero-left p {
+            color: #6b7280;
+            max-width: 620px;
+            line-height: 1.7;
+        }
+
+        .hero-badge {
+            background: white;
+            padding: 14px 20px;
+            border-radius: 14px;
+            border: 1px solid #ddd6fe;
+            font-weight: 600;
+            color: #4c1d95;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.03);
+        }
+
+        main {
+            max-width: 1280px;
+            margin: 25px auto;
+            padding: 0 20px 30px;
+        }
+
+        .content-wrapper {
+            background: white;
+            border-radius: 22px;
+            padding: 32px;
+            border: 1px solid #f3f4f6;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            min-height: 500px;
+        }
+
+        footer {
+            margin-top: 40px;
+            background: white;
+            border-top: 1px solid #f3f4f6;
+            padding: 30px 40px;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left h4 {
+            margin-bottom: 6px;
+            color: #2e1065;
+            font-weight: 700;
+        }
+
+        .footer-left p {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 18px;
+            font-size: 0.9rem;
+        }
+
+            .footer-right a {
+                color: #6b7280;
+            }
+
+                .footer-right a:hover {
+                    color: #4c1d95;
+                }
+    </style>
+</head>
+
+<body>
+
+   
+
+    <header class="main-header">
+
+        <div class="brand-section">
+            <div class="brand-icon">
+                S
+            </div>
+
+            <div class="brand-text">
+                <h2>SecureStudentManagement</h2>
+                <p>Modern academic administration platform</p>
+            </div>
+        </div>
+
+        <nav>
+            <ul>
+                <li>
+                    <a asp-controller="Student" asp-action="List">
+                        Dashboard
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="user-panel">
+            @if (User.Identity.IsAuthenticated)
+            {
+                var profilePic = User.FindFirst("profilePic")?.Value ?? "https://via.placeholder.com/42";
+
+                <img src="@profilePic" class="profile-avatar" />
+
+                <div class="user-details">
+                    <strong>@User.Identity.Name</strong>
+                    <span>System Administrator</span>
+                </div>
+
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    <button class="btn-auth">Logout</button>
+                </form>
+            }
+            else
+            {
+                <a asp-controller="Account" asp-action="Login" class="btn-auth">
+                    Login
+                </a>
+            }
+        </div>
+
+    </header>
+
+   
+
+    <main>
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+
+            <div class="footer-left">
+                <h4>SecureStudentManagement</h4>
+                <p>
+                    © @DateTime.Now.Year All rights reserved.
+                </p>
+            </div>
+
+            <div class="footer-right">
+                <a href="#">Privacy</a>
+                <a href="#">Security</a>
+                <a href="#">Support</a>
+                <a href="#">Documentation</a>
+            </div>
+
+        </div>
+    </footer>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

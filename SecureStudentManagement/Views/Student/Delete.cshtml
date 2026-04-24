@@ -1,0 +1,151 @@
+﻿@model SecureStudentManagement.Models.Learner
+
+@{
+    ViewData["Title"] = "Deactivate Learner";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .delete-wrapper {
+        max-width: 700px;
+        margin: 40px auto;
+    }
+
+    .delete-card {
+        background: #ffffff;
+        border: 1px solid #ede9fe;
+        border-radius: 24px;
+        padding: 40px;
+        text-align: center;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.03);
+    }
+
+    .profile-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 22px;
+        object-fit: cover;
+        border: 2px solid #ede9fe;
+        margin-bottom: 24px;
+        background: #fafafa;
+    }
+
+    .delete-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1f1b2e;
+        margin-bottom: 10px;
+    }
+
+    .learner-name {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #4c1d95;
+        margin-bottom: 18px;
+    }
+
+    .delete-description {
+        color: #6b7280;
+        line-height: 1.8;
+        max-width: 520px;
+        margin: 0 auto 25px auto;
+    }
+
+    .warning-box {
+        background: #faf5ff;
+        border: 1px solid #ddd6fe;
+        color: #5b21b6;
+        padding: 20px;
+        border-radius: 18px;
+        margin-bottom: 30px;
+        line-height: 1.7;
+    }
+
+    .action-row {
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .cancel-btn {
+        min-width: 160px;
+        padding: 14px 24px;
+        border-radius: 14px;
+        border: 1px solid #ddd6fe;
+        background: white;
+        color: #4c1d95;
+        font-weight: 600;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .confirm-btn {
+        min-width: 220px;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #4c1d95, #7c3aed);
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 10px 24px rgba(76, 29, 149, 0.15);
+    }
+
+        .confirm-btn:hover,
+        .cancel-btn:hover {
+            transition: 0.2s;
+            transform: translateY(-1px);
+        }
+</style>
+
+<div class="delete-wrapper">
+
+    <div class="delete-card">
+
+        <img src="@(!string.IsNullOrEmpty(Model.ProfileImageUrl) ? Model.ProfileImageUrl : "https://via.placeholder.com/120")"
+             class="profile-image"
+             alt="Learner Profile" />
+
+        <div class="delete-title">
+            Deactivate Learner
+        </div>
+
+        <div class="learner-name">
+            @Model.FirstName @Model.LastName
+        </div>
+
+        <div class="delete-description">
+            You are about to remove this learner from active academic records.
+            This action will deactivate the profile while keeping the information
+            available for future restoration if required.
+        </div>
+
+        <div class="warning-box">
+            Once confirmed, this learner will no longer appear in active system records.
+            Administrative restoration can still be performed later if necessary.
+        </div>
+
+        <form asp-action="ConfirmDelete" method="post">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" asp-for="id" />
+
+            <div class="action-row">
+
+                <button type="submit" class="confirm-btn">
+                    Confirm Deactivation
+                </button>
+
+                <a asp-action="List" class="cancel-btn">
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
