@@ -18,7 +18,7 @@ Key Features & Structure
 •	Models/Learner.cs defines the student entity.
 •	Models/PagedLearnerViewModel.cs supports pagination for large datasets.
 •	Soft Delete:
-•	Likely implemented via an "Active/Inactive" status in the model.
+•	Implemented via an "Active/Inactive" status in the model.
 3. Azure Integration
 •	Cosmos DB:
 •	Services/StudentCosmosDbService.cs handles student data storage and retrieval.
@@ -29,7 +29,7 @@ Key Features & Structure
 •	The image URL is saved in Cosmos DB, not the image itself.
 4. Security
 •	Role-based Access:
-•	Likely enforced via Helpers/StudentAccessHelper.cs and controller logic.
+•	Enforced via Helpers/StudentAccessHelper.cs and controller logic.
 •	Input Validation:
 •	Validation scripts and logic in views and possibly in controllers/models.
 5. UI & Views
@@ -41,7 +41,7 @@ Key Features & Structure
 •	Unit tests in SecureStudentManagement.Tests/ (e.g., LearnerTests.cs, UnitTest1.cs).
 ---
 Summary
-Your project is a secure, cloud-integrated student management system using Razor Pages, with:
+The project is a secure, cloud-integrated student management system using Razor Pages, with:
 •	OAuth 2.0 authentication for admin access
 •	CRUD operations for students (with profile image upload)
 •	Azure Cosmos DB for student data
